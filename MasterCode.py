@@ -41,13 +41,13 @@ passList = [
 
 # code to read data from dictionary file
 start_time = time.time()
-file1 = open('dictionary.txt', encoding='utf-8-sig')
 file2 = open('dictionary.txt',encoding='utf-8-sig')
 data = file2.read()
 file2_list = data.split("\n")
 
 #function for combination 1
 def combination1():
+    file1 = open('dictionary.txt', encoding='utf-8-sig')
     count = 0
     n = 0
     while (n < 5579):
@@ -82,13 +82,32 @@ def combination2():
     file1.close()
     return count2
 
-
+#function for combination 3
+def combination3():
+    file1=open('dictionary.txt',encoding='utf-8-sig')
+    count3=0
+    for i in range(0,5579):
+        string1=str((file1.readline()).strip())
+        for j in range(0,200):
+            string2=str(j)
+            stringCombined=string1+string2
+            result3=hashfun(stringCombined)
+            for i in passList:
+                status=stringCompare(i,result3)
+                if(status==True):
+                    count3+=1
+                    print(stringCombined," := ",result3," ? ",i," = ",status)
+                    passList.pop(passList.index(i))
+    file1.close()
+    return count3
 
 
 #function calling
+
 count=combination1()
 count2=combination2()
-print(count2+count)
+count3=combination3()
+print(count3+count2+count)
 
 #print statement to calculate the amount of run time
 print("--- %s seconds ---" % (time.time() - start_time))
