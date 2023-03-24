@@ -2,6 +2,7 @@
 
 import hashlib
 import time
+import itertools
 
 # function to return the hexadecimal equivalent of SHA1
 
@@ -100,18 +101,51 @@ def combination3():
                     passList.pop(passList.index(i))
     file1.close()
     return count3
-
+#function for combination 4
 def combination4():
-    return 0
-    
+    count4=0
+    digit_counts = [1,2,3,4,6,7,8,9]
+    for n in digit_counts:
+        digit_combinations = itertools.product(range(10), repeat=n)
+        for digits in digit_combinations:
+            digits = (''.join(map(str, digits)))
+            result1 = hashfun(digits)
+            for i in passList:
+                status = stringCompare(i,result1)
+                if (status == True):
+                    count4 += 1
+                    print(digits, " := ", result1, " ? ",i," = ",status)
+                    passList.pop(passList.index(i))
+    return count4
+
+#function for combination 5
+def combination5():
+    count5=0
+    digit_counts = [1, 2, 3, 4, 5, 6]
+    for n in digit_counts:
+        digit_combinations = itertools.product(range(10), repeat=n)
+        for digits in digit_combinations:    
+            for j in range(0,5579):
+                string2=file2_list[j]
+                digits = (''.join(map(str, digits)))  
+                passw = string2 + digits  
+                result = hashfun(passw)            
+                for i in passList:
+                    status = stringCompare(i, result)
+                    if (status == True):
+                        count5 += 1
+                        print(passw, " := ", result, " ? ", i, " = ", status)
+                        passList.pop(passList.index(i))    
+    return count5
 
 #function calling
 
 count=combination1()
 count2=combination2()
 count3=combination3()
-print(count3+count2+count)
+count4=combination4()
+count5=combination5()
+print(count5+count4+count3+count2+count)
 
 #print statement to calculate the amount of run time
 print("--- %s seconds ---" % (time.time() - start_time))
-
