@@ -41,33 +41,48 @@ passList = [
 ]
 
 # code to read data from dictionary file
+
 start_time = time.time()
 file2 = open('dictionary.txt',encoding='utf-8-sig')
 data = file2.read()
 file2_list = data.split("\n")
+
+# code for creating list of values
+
+combination_list = []
+digit_counts = [1,2,3,4,5,6,7]
+for n in digit_counts:
+    digit_combinations = itertools.product(range(10), repeat=n)
+    for digits in digit_combinations:
+        digits = (''.join(map(str, digits)))
+        combination_list.append(digits)
 
 #function for combination 1
 def combination1():
     file1 = open('dictionary.txt', encoding='utf-8-sig')
     count = 0
     n = 0
+    Proc_count=0
     while (n < 5579):
         hashReturn = str((file1.readline()).strip())
         result1 = hashfun(hashReturn)
         for i in passList:
             status = stringCompare(i, result1)
+            Proc_count+=1
             if (status == True):
                 count += 1
                 print(hashReturn, " := ", result1, " ? ", i, " = ", status)
                 passList.pop(passList.index(i))
         n += 1
     file1.close()
+    # print("combination1: ",Proc_count)
     return count
 
 #function for combination 2
 def combination2():
     file1 = open('dictionary.txt', encoding='utf-8-sig')
     count2=0
+    Proc_count=0
     for i in range(0,5579):
         string1=str((file1.readline()).strip())
         for j in range(0,5579):
@@ -76,66 +91,69 @@ def combination2():
             result2=hashfun(stringCombined)
             for i in passList: 
                 status=stringCompare(i,result2)
+                Proc_count+=1
                 if (status==True):
                     count2+=1
                     print(stringCombined," := ",result2," ? ",i," = ",status) 
                     passList.pop(passList.index(i))
     file1.close()
+    # print("combination2: ",Proc_count)
     return count2
 
 #function for combination 3
+
 def combination3():
-    file1=open('dictionary.txt',encoding='utf-8-sig')
     count3=0
-    for i in range(0,5579):
-        string1=str((file1.readline()).strip())
-        for j in range(0,200):
-            string2=str(j)
-            stringCombined=string1+string2
-            result3=hashfun(stringCombined)
-            for i in passList:
-                status=stringCompare(i,result3)
-                if(status==True):
-                    count3+=1
-                    print(stringCombined," := ",result3," ? ",i," = ",status)
-                    passList.pop(passList.index(i))
-    file1.close()
-    return count3
+    for i in range(1900,3000):   
+        stringY=str(i)
+        for j in range(1,13):
+            stringM=str('{0:0>2}'.format(j))
+            for k in range(1,32):
+                stringD=str('{0:0>2}'.format(k))
+                stringDate1=stringY+stringM+stringD
+                stringDate2=stringD+stringM+stringY
+                #print(stringDate)
+                result3a=hashfun(stringDate1)
+                result3b=hashfun(stringDate2)
+                #count+=1
+                for i in passList: 
+                    status1=stringCompare(i,result3a)
+                    status2=stringCompare(i,result3b)
+                    if (status1==True or status2==True):
+                        count3+=1
+                        print(stringDate1," := ",result3a," ? ",i," = ",status1) 
+                        passList.pop(passList.index(i))
+    return count3   
+
 #function for combination 4
+
 def combination4():
     count4=0
-    digit_counts = [1,2,3,4,6,7,8,9]
-    for n in digit_counts:
-        digit_combinations = itertools.product(range(10), repeat=n)
-        for digits in digit_combinations:
-            digits = (''.join(map(str, digits)))
-            result1 = hashfun(digits)
-            for i in passList:
-                status = stringCompare(i,result1)
-                if (status == True):
-                    count4 += 1
-                    print(digits, " := ", result1, " ? ",i," = ",status)
-                    passList.pop(passList.index(i))
+    for digits in combination_list:
+        result4=hashfun(digits)
+        for i in passList:
+            status = stringCompare(i,result4)
+            if (status == True):
+                count4 += 1
+                print(digits, " := ", result4, " ? ",i," = ",status)
+                passList.pop(passList.index(i))
     return count4
 
 #function for combination 5
+
 def combination5():
-    count5=0
-    digit_counts = [1, 2, 3, 4, 5, 6]
-    for n in digit_counts:
-        digit_combinations = itertools.product(range(10), repeat=n)
-        for digits in digit_combinations:    
-            for j in range(0,5579):
-                string2=file2_list[j]
-                digits = (''.join(map(str, digits)))  
-                passw = string2 + digits  
-                result = hashfun(passw)            
-                for i in passList:
-                    status = stringCompare(i, result)
-                    if (status == True):
-                        count5 += 1
-                        print(passw, " := ", result, " ? ", i, " = ", status)
-                        passList.pop(passList.index(i))    
+    count5 = 0
+    for digits in combination_list:
+        for j in range(0, 5579):
+            string2 = file2_list[j]
+            passw = string2 + digits
+            result = hashfun(passw)
+            for i in passList:
+                status = stringCompare(i, result)
+                if (status == True):
+                    count5 += 1
+                    print(passw, " := ", result, " ? ", i, " = ", status)
+                    passList.pop(passList.index(i))
     return count5
 
 #function calling
@@ -145,7 +163,7 @@ count2=combination2()
 count3=combination3()
 count4=combination4()
 count5=combination5()
-print(count5+count4+count3+count2+count)
+print(count+count2+count3+count4+count5)
 
 #print statement to calculate the amount of run time
 print("--- %s seconds ---" % (time.time() - start_time))
