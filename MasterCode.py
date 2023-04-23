@@ -156,6 +156,20 @@ def combination5():
                     passList.pop(passList.index(i))
     return count5
 
+#function for combination 6
+ 
+def combination6():
+    count6=0
+    for i in range(100):
+        num=str('{:09d}'.format(i))
+        hres=hashfun(num)
+        for j in passList:
+            status = stringCompare(j,hres)
+            if (status == True):
+                count6+=1
+                print(num, " := ", i, " ? ",j," = ",status)
+                passList.pop(passList.index(j))
+    return count6 
 #function calling
 
 count=combination1()
@@ -163,7 +177,8 @@ count2=combination2()
 count3=combination3()
 count4=combination4()
 count5=combination5()
-print(count+count2+count3+count4+count5)
+count6=combination6()
+print(count+count2+count3+count4+count5+count6)
 
 #print statement to calculate the amount of run time
 print("--- %s seconds ---" % (time.time() - start_time))
