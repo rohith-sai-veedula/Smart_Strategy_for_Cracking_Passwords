@@ -172,6 +172,8 @@ def combination6():
                 passList.pop(passList.index(j))
     return count6 
 
+#funciton for combination 7
+
 def combination7():
     file1 = open('dictionary.txt', encoding='utf-8-sig')
     count7=0
