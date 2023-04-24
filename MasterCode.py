@@ -46,6 +46,7 @@ start_time = time.time()
 file2 = open('dictionary.txt',encoding='utf-8-sig')
 data = file2.read()
 file2_list = data.split("\n")
+file3_list = data.split("\n")
 
 # code for creating list of values
 
@@ -170,7 +171,33 @@ def combination6():
                 print(num, " := ", i, " ? ",j," = ",status)
                 passList.pop(passList.index(j))
     return count6 
+
+def combination7():
+    file1 = open('dictionary.txt', encoding='utf-8-sig')
+    count7=0
+    Proc_count=0
+    for i in range(0,5579):
+        string1=str((file1.readline()).strip())
+        for j in range(0,5579):
+            string2=file2_list[j]
+            for k in range(0,5579):
+                string3=file3_list[k]
+                stringCombined=string1+string2+string3
+                # print(stringCombined)
+                result7=hashfun(stringCombined)
+                for l in passList:
+                    status=stringCompare(l,result7)
+                    Proc_count+=1
+                    if (status==True):
+                        count7+=1
+                        print(stringCombined," := ",result7," ? ",l," = ",status)
+                        passList.pop(passList.index(i))
+    file1.close()
+    print("combination7: ",Proc_count)
+    return count7
+
 #function calling
+
 
 count=combination1()
 count2=combination2()
@@ -178,7 +205,9 @@ count3=combination3()
 count4=combination4()
 count5=combination5()
 count6=combination6()
-print(count+count2+count3+count4+count5+count6)
+count7=combination7()
+
+print(count+count2+count3+count4+count5+count6+count7)
 
 #print statement to calculate the amount of run time
 print("--- %s seconds ---" % (time.time() - start_time))
