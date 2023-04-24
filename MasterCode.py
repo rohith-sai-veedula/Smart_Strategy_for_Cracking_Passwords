@@ -1,3 +1,9 @@
+########################################################
+# Cryptography and data security project
+# Author 1 : Rohith Sai Veedula
+# Author 2 : Srija Sayanahagari
+########################################################
+
 # importing required libraries
 
 import hashlib
