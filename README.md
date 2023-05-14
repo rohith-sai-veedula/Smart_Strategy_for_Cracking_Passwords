@@ -17,27 +17,48 @@ _I have imported all the hashed passwords in the Password.txt file into a list i
 In this, the given dictionary.txt file is read and each string in the file is hashed for comparison with the given ciphers.
 
 Example: 
+        
+        wednesday
+        increasing
 
 ## **combination2**: 
 Each of the two strings of the dictionary text file is appended and tested for their presence in given hashed passwords.
 
+Example: 
+        
+        investigation+saving
 ## **combination3**: 
 Dates of varied ranges are tested for their presence in the passwords file.
 
-
+Example: 
+        
+        20230322 (YYYYMMDD)
 ## **combination4**: 
 A range of digits is tested with different permutations.
 
+Example: 
+
+        123456
+        654321
 ## **combination5**: 
 A range of digits appended to the words in the dictionary file are tested.
+
+Example: 
+        
+        marching2023
+        honour99999 
 
 
 ## **combination6** : 
 The pattern of digits is tested in this function.
+Example:
 
+        000000001
 
 ## **combination7** : 
 The hash of each of the three appended words of the dictionary file is tested for comparison in this function.
+Example:
 
+        financial+master+spoken
 
 
