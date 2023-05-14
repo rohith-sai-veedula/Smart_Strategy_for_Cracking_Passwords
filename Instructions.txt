@@ -1,0 +1,6 @@
+Some people tend to use only a few digits as passwords
+o Examples: 0000, 123456, 012, 20170101,
+Some people tend to use English words or phrases or short sentences as passwords (not safe!)
+o Examples: university, good, password, reallygood, greatday
+Some people combine English words and digits, but they generally place few digits after the English words.
+o Examples: university17, password123, great007
